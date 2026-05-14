@@ -19,6 +19,8 @@ int main(int argc, char* argv[]){
 
     float speed = 0;
     float rpm = 1000;
+    float temp = 50;
+    float fuel = 100;
     
 
     while(running){
@@ -30,12 +32,13 @@ int main(int argc, char* argv[]){
             if(event.type == SDL_KEYDOWN){
                 if(event.key.keysym.sym == SDLK_w){
                     speed += 5;
-                    rpm += speed * 30;
+                    rpm += speed * 20;
+                    temp += 0.001;
                 }
 
                 if(event.key.keysym.sym == SDLK_s){
                     speed -= 5;
-                    rpm -= speed * 30;
+                    rpm -= speed * 20;
                 }
 
                 if(speed < 0){
@@ -44,21 +47,32 @@ int main(int argc, char* argv[]){
                 if(speed > 300){
                     speed = 300;
                 }
+
                 if(rpm > 7000){
                     rpm = 7000;
                 }
                 if(rpm < 1000){
                     rpm = 1000;
                 }
+
+                if(temp < 50){
+                    temp = 50;
+                }
+                if(temp>100){
+                    temp = 100;
+                }
             }
+            fuel -= 0.01;
         }
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
+        //Speed
         SDL_Rect spd = {50, 50, (int)speed, 30};
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         SDL_RenderFillRect(renderer, &spd);
 
+        //RPM
         SDL_Rect rpmBar = {50, 100, (int)rpm/20, 30};
         if(rpm > 6000){
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
@@ -67,6 +81,22 @@ int main(int argc, char* argv[]){
             SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         }
         SDL_RenderFillRect(renderer, &rpmBar);
+
+        //Fuel
+        SDL_Rect fuelBar = {50, 150, (int)fuel, 30};
+        if(fuel > 20){
+            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        }
+        if(fuel < 20){
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        }
+        SDL_RenderFillRect(renderer, &fuelBar);
+
+        //Temp
+        SDL_Rect tempBar = {50, 200, (int)temp, 30};
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+        SDL_RenderFillRect(renderer, &tempBar);
+
 
         SDL_RenderPresent(renderer);
     }
