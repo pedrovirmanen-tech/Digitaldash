@@ -17,18 +17,56 @@ int main(int argc, char* argv[]){
     bool running = true;
     SDL_Event event;
 
+    float speed = 0;
+    float rpm = 1000;
+    
+
     while(running){
         while(SDL_PollEvent(&event)){
             if(event.type == SDL_QUIT){
                 running = false;
             }
+
+            if(event.type == SDL_KEYDOWN){
+                if(event.key.keysym.sym == SDLK_w){
+                    speed += 5;
+                    rpm += speed * 30;
+                }
+
+                if(event.key.keysym.sym == SDLK_s){
+                    speed -= 5;
+                    rpm -= speed * 30;
+                }
+
+                if(speed < 0){
+                    speed = 0;
+                }
+                if(speed > 300){
+                    speed = 300;
+                }
+                if(rpm > 7000){
+                    rpm = 7000;
+                }
+                if(rpm < 1000){
+                    rpm = 1000;
+                }
+            }
         }
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        SDL_Rect rect = {50, 50, 200, 30};
+        SDL_Rect spd = {50, 50, (int)speed, 30};
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-        SDL_RenderFillRect(renderer, &rect);
+        SDL_RenderFillRect(renderer, &spd);
+
+        SDL_Rect rpmBar = {50, 100, (int)rpm/20, 30};
+        if(rpm > 6000){
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        }
+        else{
+            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        }
+        SDL_RenderFillRect(renderer, &rpmBar);
 
         SDL_RenderPresent(renderer);
     }
