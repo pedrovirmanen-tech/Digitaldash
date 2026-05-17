@@ -18,7 +18,8 @@ int main(int argc, char* argv[]){
     SDL_Event event;
 
     float speed = 0;
-    float RPM = 800;
+    float RPM = 800 + rand() % 50;
+    float targetRPM = 800;
     float temp = 50;
     float fuel = 100;
     
@@ -32,13 +33,11 @@ int main(int argc, char* argv[]){
             if(event.type == SDL_KEYDOWN){
                 if(event.key.keysym.sym == SDLK_w){
                     speed += 5;
-                    RPM += speed * 20;
-                    temp += 0.001;
+                    temp += 0.01;
                 }
 
                 if(event.key.keysym.sym == SDLK_s){
                     speed -= 5;
-                    RPM -= speed * 20;
                 }
 
                 if(speed < 0){
@@ -55,14 +54,19 @@ int main(int argc, char* argv[]){
                     RPM = 800;
                 }
 
-                if(temp < 50){
-                    temp = 50;
+                if(temp < 0){
+                    temp = 0;
                 }
                 if(temp>100){
                     temp = 100;
                 }
             }
             fuel -= 0.01;
+            targetRPM = 800 + speed * 25;
+            RPM += (targetRPM -RPM) * 0.05;
+            while(temp < 50){
+                temp += 5;
+            }
         }
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
