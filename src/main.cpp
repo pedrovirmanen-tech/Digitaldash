@@ -7,7 +7,7 @@ int main(int argc, char* argv[]){
         "Dashboard",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        800,
+        1000,
         600,
         0
     );
@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
     SDL_Event event;
 
     float speed = 0;
-    float rpm = 1000;
+    float RPM = 800;
     float temp = 50;
     float fuel = 100;
     
@@ -32,13 +32,13 @@ int main(int argc, char* argv[]){
             if(event.type == SDL_KEYDOWN){
                 if(event.key.keysym.sym == SDLK_w){
                     speed += 5;
-                    rpm += speed * 20;
+                    RPM += speed * 20;
                     temp += 0.001;
                 }
 
                 if(event.key.keysym.sym == SDLK_s){
                     speed -= 5;
-                    rpm -= speed * 20;
+                    RPM -= speed * 20;
                 }
 
                 if(speed < 0){
@@ -48,11 +48,11 @@ int main(int argc, char* argv[]){
                     speed = 300;
                 }
 
-                if(rpm > 7000){
-                    rpm = 7000;
+                if(RPM > 8500){
+                    RPM = 8500;
                 }
-                if(rpm < 1000){
-                    rpm = 1000;
+                if(RPM < 800){
+                    RPM = 800;
                 }
 
                 if(temp < 50){
@@ -67,35 +67,60 @@ int main(int argc, char* argv[]){
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
         //Speed
-        SDL_Rect spd = {50, 50, (int)speed, 30};
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-        SDL_RenderFillRect(renderer, &spd);
+        SDL_Rect spd = {0, 50, 750, 70};
+        SDL_RenderDrawRect(renderer, &spd);
+
+        SDL_Rect spdFill = {0, 50, (int)(speed*2), 70};
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderFillRect(renderer, &spdFill);
 
         //RPM
-        SDL_Rect rpmBar = {50, 100, (int)rpm/20, 30};
-        if(rpm > 6000){
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+        SDL_Rect rpm = {0, 130, 850, 40};
+        SDL_RenderDrawRect(renderer, &rpm);
+
+        SDL_Rect rpmFill = {0, 130, (int)(RPM/10), 40};
+        if(RPM > 7000){
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_RenderFillRect(renderer, &rpmFill);
         }
         else{
-            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+            SDL_RenderFillRect(renderer, &rpmFill);
         }
-        SDL_RenderFillRect(renderer, &rpmBar);
 
         //Fuel
-        SDL_Rect fuelBar = {50, 150, (int)fuel, 30};
-        if(fuel > 20){
-            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-        }
-        if(fuel < 20){
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        }
-        SDL_RenderFillRect(renderer, &fuelBar);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+        SDL_Rect fuelR = {0, 450, 430, 40};
+        SDL_RenderDrawRect(renderer, &fuelR);
+
+        SDL_Rect fuelFill = {0, 450, (int)fuel, 40};
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        SDL_RenderFillRect(renderer, &fuelFill);
+        
 
         //Temp
-        SDL_Rect tempBar = {50, 200, (int)temp, 30};
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+        SDL_Rect tempR = {0, 330, 430, 40};
+        SDL_RenderDrawRect(renderer, &tempR);
+
+        SDL_Rect tempFill = {0, 330, (int)temp, 40};
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-        SDL_RenderFillRect(renderer, &tempBar);
+        SDL_RenderFillRect(renderer, &tempFill);
+        
+
+        //Vikavalot
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+        SDL_Rect warning = {800, 350, 200, 250};
+        SDL_RenderDrawRect(renderer, &warning);
+        
 
 
         SDL_RenderPresent(renderer);
