@@ -1,5 +1,8 @@
 #include <SDL2/SDL.h>
 
+// g++ src/main.cpp -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -o build/digidash.exe
+// ./build/digidash.exe
+
 int main(int argc, char* argv[]){
     SDL_Init(SDL_INIT_VIDEO);
 
