@@ -1,10 +1,15 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <string>
 
-// g++ src/main.cpp -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -o build/digidash.exe
+// g++ src/main.cpp -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -o build/digidash.exe
 // ./build/digidash.exe
 
 int main(int argc, char* argv[]){
     SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+
+    TTF_Font* font = TTF_OpenFont("assets/fonts/Roboto-VariableFont_wdth,wght.ttf", 32);
 
     SDL_Window* window = SDL_CreateWindow(
         "Dashboard",
@@ -49,7 +54,7 @@ int main(int argc, char* argv[]){
                 }
 
                 if(event.key.keysym.sym == SDLK_s){
-                    speed -= 5;
+                    speed -= 2;
                 }
 
                 if(event.key.keysym.sym == SDLK_e){
@@ -104,6 +109,16 @@ int main(int argc, char* argv[]){
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillRect(renderer, &spdFill);
 
+        SDL_Color white = {255,255,255};
+        std::string speedText = std::to_string((int)speed) + " KM/H";
+        SDL_Surface* surface = TTF_RenderText_Solid(font, speedText.c_str(),white);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+        SDL_Rect textRect = {50, 50, surface->w, surface->h};
+        SDL_RenderCopy(renderer, texture, NULL, &textRect);
+
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+
         //RPM
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
@@ -155,6 +170,9 @@ int main(int argc, char* argv[]){
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
+    TTF_CloseFont(font);
+    TTF_Quit();
 
     SDL_Quit();
 
