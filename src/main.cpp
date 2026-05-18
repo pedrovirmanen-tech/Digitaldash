@@ -20,9 +20,16 @@ int main(int argc, char* argv[]){
     bool running = true;
     SDL_Event event;
 
+
+    int gear = 1;
+    int gearMaxSpd[] = {0, 40, 70, 110, 160, 220, 300};
+    float acceleration[]={0, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1};
+
+
     float speed = 0;
     float RPM = 800 + rand() % 50;
     float targetRPM = 800;
+
     float temp = 50;
     float fuel = 100;
     
@@ -35,12 +42,25 @@ int main(int argc, char* argv[]){
 
             if(event.type == SDL_KEYDOWN){
                 if(event.key.keysym.sym == SDLK_w){
-                    speed += 5;
+                    if(speed < gearMaxSpd[gear]){
+                        speed += acceleration[gear];
+                    }
                     temp += 0.01;
                 }
 
                 if(event.key.keysym.sym == SDLK_s){
                     speed -= 5;
+                }
+
+                if(event.key.keysym.sym == SDLK_e){
+                    if(gear<6){
+                        gear++;
+                    }
+                }
+                if(event.key.keysym.sym == SDLK_q){
+                    if(gear>1){
+                        gear--;
+                    }
                 }
 
                 if(speed < 0){
@@ -65,7 +85,7 @@ int main(int argc, char* argv[]){
                 }
             }
             fuel -= 0.01;
-            targetRPM = 800 + speed * 25;
+            targetRPM = 800 + (speed * 125) / gear;
             RPM += (targetRPM -RPM) * 0.05;
             while(temp < 50){
                 temp += 5;
