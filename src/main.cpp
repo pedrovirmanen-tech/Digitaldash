@@ -110,7 +110,8 @@ int main(int argc, char* argv[]){
         // --- Tausta ---
         SDL_RenderCopy(renderer, backgnd, NULL, NULL);
 
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+        SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
 
         // --- Speed ---
         SDL_Rect spd = {0, 50, 750, 70};
@@ -131,7 +132,7 @@ int main(int argc, char* argv[]){
         SDL_DestroyTexture(texture);
 
         // --- RPM ---
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
 
         SDL_Rect rpm = {0, 130, 850, 40};
         SDL_RenderDrawRect(renderer, &rpm);
@@ -184,6 +185,8 @@ int main(int argc, char* argv[]){
 
         SDL_RenderPresent(renderer);
     }
+
+    SDL_DestroyTexture(backgnd);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
