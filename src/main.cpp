@@ -9,7 +9,9 @@
 
 int main(int argc, char* argv[]){
     SDL_Init(SDL_INIT_VIDEO);
+    IMG_Init(IMG_INIT_JPG);
     TTF_Init();
+    
 
     TTF_Font* font = TTF_OpenFont("assets/fonts/Roboto-VariableFont_wdth,wght.ttf", 32);
 
@@ -23,6 +25,7 @@ int main(int argc, char* argv[]){
     );
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+    SDL_Texture* backgnd = IMG_LoadTexture(renderer, "assets/textures/carbon.jpg");
 
     bool running = true;
     SDL_Event event;
@@ -98,8 +101,14 @@ int main(int argc, char* argv[]){
                 temp += 5;
             }
         }
+        
+        
+
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+
+        // --- Tausta ---
+        SDL_RenderCopy(renderer, backgnd, NULL, NULL);
 
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
