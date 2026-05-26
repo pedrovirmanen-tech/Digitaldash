@@ -1,8 +1,10 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include <SDL2/SDL_image.h>
 
-// g++ src/main.cpp -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -o build/digidash.exe
+
+// g++ src/main.cpp -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -o build/digidash.exe
 // ./build/digidash.exe
 
 int main(int argc, char* argv[]){
