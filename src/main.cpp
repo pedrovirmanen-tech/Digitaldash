@@ -6,6 +6,8 @@
 
 // g++ src/main.cpp -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -o build/digidash.exe
 // ./build/digidash.exe
+// Neon virheä (R, G, B)=(57, 255, 20)
+// Neon keltainen (255, 255, 51)
 
 int main(int argc, char* argv[]){
     SDL_Init(SDL_INIT_VIDEO);
@@ -30,7 +32,7 @@ int main(int argc, char* argv[]){
     bool running = true;
     SDL_Event event;
 
-
+    // --- Simulointia varten ---
     int gear = 1;
     int gearMaxSpd[] = {0, 40, 70, 110, 160, 220, 300};
     float acceleration[]={0, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1};
@@ -118,7 +120,7 @@ int main(int argc, char* argv[]){
         SDL_RenderDrawRect(renderer, &spd);
 
         SDL_Rect spdFill = {0, 50, (int)(speed*2), 70};
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 57, 255, 20, 255);
         SDL_RenderFillRect(renderer, &spdFill);
 
         SDL_Color white = {255,255,255};
@@ -143,7 +145,7 @@ int main(int argc, char* argv[]){
             SDL_RenderFillRect(renderer, &rpmFill);
         }
         else{
-            SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 51, 255);
             SDL_RenderFillRect(renderer, &rpmFill);
         }
 
