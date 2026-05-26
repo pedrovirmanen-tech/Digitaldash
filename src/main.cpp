@@ -101,7 +101,7 @@ int main(int argc, char* argv[]){
 
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-        //Speed
+        // --- Speed ---
         SDL_Rect spd = {0, 50, 750, 70};
         SDL_RenderDrawRect(renderer, &spd);
 
@@ -113,13 +113,13 @@ int main(int argc, char* argv[]){
         std::string speedText = std::to_string((int)speed) + " KM/H";
         SDL_Surface* surface = TTF_RenderText_Solid(font, speedText.c_str(),white);
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-        SDL_Rect textRect = {50, 50, surface->w, surface->h};
+        SDL_Rect textRect = {760, 70, surface->w, surface->h};
         SDL_RenderCopy(renderer, texture, NULL, &textRect);
 
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
 
-        //RPM
+        // --- RPM ---
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
         SDL_Rect rpm = {0, 130, 850, 40};
@@ -135,7 +135,13 @@ int main(int argc, char* argv[]){
             SDL_RenderFillRect(renderer, &rpmFill);
         }
 
-        //Fuel
+        std::string rpmText = std::to_string((int)RPM);
+        SDL_Surface* surface2 = TTF_RenderText_Solid(font, rpmText.c_str(),white);
+        SDL_Texture* texture2 = SDL_CreateTextureFromSurface(renderer, surface2);
+        SDL_Rect textRect2 = {870, 130, surface2->w, surface2->h};
+        SDL_RenderCopy(renderer, texture2, NULL, &textRect2);
+
+        // --- Fuel ---
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
         SDL_Rect fuelR = {0, 450, 430, 40};
@@ -146,7 +152,7 @@ int main(int argc, char* argv[]){
         SDL_RenderFillRect(renderer, &fuelFill);
         
 
-        //Temp
+        // --- Temp ---
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
         SDL_Rect tempR = {0, 330, 430, 40};
@@ -157,7 +163,7 @@ int main(int argc, char* argv[]){
         SDL_RenderFillRect(renderer, &tempFill);
         
 
-        //Vikavalot
+        // --- Vikavalot ---
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
         SDL_Rect warning = {800, 350, 200, 250};
