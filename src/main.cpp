@@ -28,6 +28,25 @@ int main(int argc, char* argv[]){
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
     SDL_Texture* backgnd = IMG_LoadTexture(renderer, "assets/textures/carbon.jpg");
+    SDL_Texture* vikavalot = IMG_LoadTexture(renderer, "assets/textures/vikavalot.png");
+
+    SDL_Rect handBrake = {0, 0, 205, 235};
+    SDL_Rect checkEngine = {205, 0, 205, 235};
+    SDL_Rect akku = {410, 0, 205, 235};
+    SDL_Rect hehku = {615, 0, 205, 235};
+    SDL_Rect takaSumu = {820, 0, 205, 235};
+
+    SDL_Rect luisunEsto = {0, 235, 205, 235};
+    SDL_Rect bensa = {205, 235, 205, 235};
+    SDL_Rect kaasujalka = {410, 235, 205, 235};
+    SDL_Rect lampotila = {615, 235, 205, 235};
+    SDL_Rect ABS = {820, 235, 205, 235};
+
+    SDL_Rect hatavilkku = {0, 470, 205, 235};
+    SDL_Rect puhallus = {205, 470, 205, 235};
+    SDL_Rect ilmatyyny = {410, 470, 205, 235};
+    SDL_Rect ilmanpaine = {615, 470, 205, 235};
+    SDL_Rect oljy = {820, 470, 205, 235};
 
     bool running = true;
     SDL_Event event;
@@ -179,6 +198,10 @@ int main(int argc, char* argv[]){
 
         // --- Vikavalot ---
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+        SDL_Rect dstRect = {800, 350, 205, 235};
+        SDL_RenderCopy(renderer, vikavalot, &bensa, &dstRect);// Tähän pitää erikseen laittaa minkä vikavalon haluaa esille
+        // Myöhemmin jotkut syttyy toiminnoista esim liian kuuma, tai vaikka bensa lopussa
 
         SDL_Rect warning = {800, 350, 200, 250};
         SDL_RenderDrawRect(renderer, &warning);
