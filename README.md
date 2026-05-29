@@ -21,3 +21,5 @@ Q = Vaihde alas
 "main.cpp" sisältää lähdekoodin.
 Toimiva .exe-tiedosto löytyy "build" kansiosta.
 Ohjelman kääntäminen terminalissa: ./build/digidash.exe
+
+Github: Laitaa assets, build, include, lib ja src yhteen kansioon. Sitten vscodessa suorita y.o. komento.
